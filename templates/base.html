@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>{% block head_title %}{% endblock head_title %}</title>
+	{% load staticfiles %}
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+	<link rel="apple-touch-icon-precomposed" sizes="52x52" href="{% static 'images/apple-icon-52x52-precomposed.png' %}" />
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="{% static 'images/apple-icon-72x72-precomposed.png' %}" />
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="{% static 'images/apple-icon-114x114-precomposed.png' %}" />
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="{% static 'images/apple-icon-144x144-precomposed.png' %}" />
+
+	<meta content="summary" name="twitter:card" />
+	<meta content="@LayerVault" name="twitter:site" />
+	<meta content="Designer News" name="twitter:title" />
+	<meta content="Designer News is a community where design and technology professionals share interesting links and timely events." name="twitter:description" />
+
+	<meta content="Designer News" name="og:site_name" />
+	<meta content="Designer News" name="og:title" />
+	<meta content="https://news.layervault.com/" name="og:url" />
+	<meta content="Designer News is a community where design and technology professionals share interesting links and timely events." name="og:description" />
+	<meta content="website" name="og:type" />
+
+</head>
+<body>
+		<div id="header">
+			<div class="header-wrapper clearfix">
+
+				<a href="/" target="_self" class="logo">Lkd</a>
+
+				<ul class="categories">
+					<!--<li><a href="">Колонки</a></li>
+					<li class="active"><a href="">Статьи</a></li>
+					<li><a href="">Категории</a></li>-->
+					
+				</ul>
+
+				<ul class="account">
+				{% if user.is_authenticated %}
+					<li><a href="">Аккаунт <sup>{{ user.username }}</sup></a></li>
+					<li><a href="{% url 'logout' %}" class="btn btn-green">Выйти</a></li>
+				{% else %}
+					<li><a href="{% url 'socialauth_begin' 'github' %}">Войти через GitHub</a></li>
+				{% endif %}
+				</ul>
+			</div>
+
+			<div class="click-mask"></div>
+
+		</div>
+		<div class="container">
+
+			{% block content_header %}
+				
+			{% endblock content_header %}
+
+			<div class="content-main">
+			{% block content_main %}
+			
+			{% endblock content_main %}
+			</div>
+
+			{% block content_sidebar %}
+			<div class="content-sidebar">
+				{% block content_sidebar_link %}
+				<div class="content-section first">
+					<p>Опубликуйте ссылку на интересный материал, ресурс или новость.</p>
+					<a href="{% url 'new' %}" class="btn btn-green"><span>Добавить</span></a>
+				</div>
+				{% endblock content_sidebar_link %}
+				{% block content_sidebar_categories %}
+				<div class="content-section">
+					{% if categories %}
+					<div class="categories-list">
+					{% for category in categories %}
+						<a href="{{ category.get_absolute_url }}"><i class="circle {{ category.category_slug }}"></i>{{ category }}</a>
+					{% endfor %}
+					</div>
+					{% endif %}
+				</div>
+				{% endblock content_sidebar_categories %}
+				{% block content_sidebar_social %}
+					<div class="content-section">
+						<a href="{{ SITE_VK_URL }}" class="social vk" target="_blank"></a>
+						<a href="{{ SITE_TW_URL }}" class="social tw" target="_blank"></a>
+					</div>
+				{% endblock content_sidebar_social %}
+			</div>
+			{% endblock content_sidebar %}
+
+		</div>
+</body>
+</html>

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block head_title %}Добавление материала - lkd.to{% endblock head_title %}
+
+{% block content_main %}
+	<h4>Добавление материала</h4>
+	<form action="{% url 'new' %}" method="POST" class="inputs">
+		{% csrf_token %}
+		<div class="input">
+			{{ form.link_url }}
+			{{ form.link_url.errors }}
+		</div>
+		<div class="input">
+			{{ form.link_title }}
+			{{ form.link_title.errors }}
+		</div>
+		<div class="input">
+			{% for radio in form.link_category %}
+			{{ radio.tag }}
+			<label for="{{ radio.id_for_label }}" >{{ radio.choice_label }}</label>
+			{% endfor %}
+			{{ form.link_category.errors }}
+		</div>
+		<input class="btn btn-block btn-green" type="submit" value="Добавить" />
+	</form>
+{% endblock content_main %}

@@ -1,0 +1,29 @@
+{% if links %}
+{% load pytils_dt %}
+<div class="links">
+	<ul>
+	{% for link in links %}
+		<li>
+			<a href="{{ link.get_redirect_url }}" target="_blank">
+				<div class="badge {{ link.link_category.category_slug }}"></div>
+				{{ link.link_title }} <span>({{link.domain}})</span>
+			</a>
+			<p>
+				<time datetime="{{link.link_created|date:'Y-m-d H:s'}}">
+					<a href="{{ link.get_absolute_url }}">{{ link.link_created|distance_of_time }}</a>
+				</time> &bull; <span><a href="{{ link.link_author.userprofile.get_absolute_url }}">{{ link.link_author.first_name }} {{ link.link_author.last_name }}</a>, {{ link.link_author.userprofile.post }}</span>
+			</p>
+		</li>
+	{% endfor %}
+	</ul>
+</div>
+<div class="pagination">
+		{% if links.has_previous %}
+		<a class="btn btn-nav btn-default pull-left" href="?page={{ links.previous_page_number }}">Предыдущая</a>
+		{% endif %}
+
+		{% if links.has_next %}
+		<a class="btn btn-nav btn-default pull-right" href="?page={{ links.next_page_number }}">Следующая</a>
+		{% endif %}
+</div>
+{% endif %}

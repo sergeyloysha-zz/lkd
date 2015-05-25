@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+
+{% block head_title %}{% if links.number != 1 %}Cтраница {{ links.number }} - {% endif %}Lkd.to{% endblock head_title %}
+
+{% block content_main %}
+		{% include "includes/links_block.html" %}
+{% endblock content_main %}

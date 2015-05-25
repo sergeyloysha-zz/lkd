@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content_main %}
+{% load pytils_dt %}
+<div class="link">
+	<div class="head">
+		<h1><a href="{{link.get_redirect_url}}">{{link.link_title}}</a></h1>
+		<div class="head-data">
+			<time datetime="{{ link.link_created|date:'Y-m-d H:s' }}"><i class="fa fa-clock-o"></i> {{ link.link_created|distance_of_time }}</time> &bull;
+			<span><a href="{{ link.link_author.userprofile.get_absolute_url }}">{{ link.link_author.first_name }} {{ link.link_author.last_name }}</a>, {{ link.link_author.userprofile.post }}</span>
+		</div>
+		<div class="comments">
+			
+		</div>
+	</div>
+</div>
+{% endblock content_main %}

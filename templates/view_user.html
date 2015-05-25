@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block head_title %}{{ profile.first_name }} {{ profile.last_name }} - Lkd.to{% endblock head_title %}
+
+{% block content_main %}
+		<div class="user">
+			<div class="photo">
+				<img src="{{ profile.userprofile.gravatar_url }}">
+			</div>
+			<h2>{{ profile.first_name }} {{ profile.last_name }}</h2>
+			<p>{{ profile.userprofile.post }}</p>
+		</div>
+
+		{% include "includes/links_block.html" %}
+{% endblock content_main %}

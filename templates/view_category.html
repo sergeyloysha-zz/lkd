@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block head_title %}{{ category }}{% if links.number != 1 %} - Cтраница {{ links.number }}{% endif %} - Lkd.to{% endblock head_title %}
+
+{% block content_main %}
+	{% if links.number == 1 %}
+		<div class="category-head {{category.category_slug}}">
+			<h3>{{ category }}</h3>
+		</div>
+	{% endif %}
+	{% include "includes/links_block.html" %}
+{% endblock content_main %}
